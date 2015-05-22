@@ -1,26 +1,68 @@
 ---
-title       : 
-subtitle    : 
-author      : 
-job         : 
+title       : Interactive World Bank Project Map 
+subtitle    : Overview of Shiny Application
+author      : Soren Heitmann
+job        : May, 2015
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
-widgets     : []            # {mathjax, quiz, bootstrap}
+widgets     : []            # {mathjax, quiz, bootstrap, shiny, interactive }
 mode        : selfcontained # {standalone, draft}
-knit        : slidify::knit2slides
 ---
 
-## Read-And-Delete
+## Overview
 
-1. Edit YAML front matter
-2. Write using R Markdown
-3. Use an empty line followed by three dashes to separate slides!
+This presentation introduces the World Bank Interactive Project Map, a shiny application available online here: 
+<a href='https://neros.shinyapps.io/wb_project_map/'>https://neros.shinyapps.io/wb_project_map/</a>  
+  
+The map reports aggregate World Bank project funding activity by time period for either:  
+(1) All active projects in a given year (2) For a range period of active projects
 
---- .class #id 
+### User Interface: 
+(1) Two timeline slide bars (2) Country detail mouse-over (3) "play" buttons (under slider bars)
 
-## Slide 2
+### The Data Includes: 
+- Active and Closed country-specific projects (excluding multi-country, regional or global).  
+- Project volumes are taken as the maximum of project's total size or commited financing
+
+This application's data source is <a href='http://data.worldbank.org/data-catalog/projects-portfolio'>publicly-available World Bank Project data</a>.
+
+--- .class #1 
+
+## Using the Map: What can we see?  
+### Post WW II Reconstruction
+
+The Interactive Map illustrates a number of interesting points
+
+The World Bank (the specific institution is called the International Bank for Reconstruction and Development, or IBRD) 
+was founded to help finance reconstruction post World War II.  
+  
+We can see this mandate clearly from 1947 and into the 1950s, with active projects in Western Europe, Japan and Australia.  
+
+Over time, we can see a shift in strategy as the bank moves from reconstruction to development, with financing into Latin America, Asia and Africa.
+
+--- .class #3 
+
+## Using the Map: What can we see?  
+### Shift to economic growth and development
+
+As early as the 1950s, we can see strategic focus in Brazil and India, which remain in-focus through today; and funding moving into Africa.
+
+China emerges as a strategic focus in the mid-1980s, with funding leading into East Asia Pacific a few years earlier and then growing.  
+
+With the collapse of the USSR in the early 1990's, funding emerges into the former Soviet Bloc.  Afterward, the map highlights the emergence of the so-called BRICs (Brazil, Russia, India, China), as projects support these fast-growing economies.
+
+Into the late 90s and 2000s, greater emphasis moves into Africa, with more countries receiving lending and in proportionally greater volumes
 
 
+--- .class #4
 
-
+## R-Embedded Example Map
+A shiny chart (an R expression that's evaluated and displayed--echo off for space), reporting the full, global World Bank lending history: All projects from 1947-2015.  Total project volumes exceed $206 bn USD.  Try the mouse-over to explore specific countries.  <a href='https://neros.shinyapps.io/wb_project_map/'>Try the application</a> to explore the timeline interactivity.
+```{r results='asis',echo=F}
+require(googleVis)
+source('../wbp.R')
+d <- getMapData(1947,2015)
+p <- getMap(1000,400)
+print(p,tag="chart")
+```
